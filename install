@@ -1,0 +1,74 @@
+#!/bin/sh
+
+logo(){
+clear
+echo "
+ +++++++++++++++++++++++++++++++++++++
+ +.Free License JetBackup for cPanel.+
+ +....Copyright @ 2023 ... tactu ....+
+ +++++++++++++++++++++++++++++++++++++
+
+"
+}
+
+check_license(){
+/usr/bin/lic_jetbackup
+}
+
+jet5_locate="/usr/local/jetapps/usr/jetbackup5/"
+license_jet="/usr/bin/lic_jetbackup"
+license_cpanel="/usr/bin/CPSupdate"
+if [ ! -e "$license_cpanel" ]; then
+logo
+echo "This is a free license and only works if you have installed cPanel nulled from here:
+https://github.com/tactu2023/cpanel-nulled
+or 
+Buy License : (comming soon)
+
+Please install cPanel nulled then try to install JetBackup 5
+
+Goodbye!
+"
+exit
+fi
+if [ ! -d "$jet5_locate" ]; then
+logo
+echo JetBackup 5 is not installed ...
+echo Start install JetBackup 5 for cPanel
+sleep 1
+echo 5
+sleep 1
+echo 4
+sleep 1
+echo 3
+sleep 1
+echo 2
+sleep 1
+echo 1
+echo Start Download JetBackup 5 for cPanel
+echo 
+bash <(curl -LSs http://repo.jetlicense.com/static/install)
+jetapps --install jetbackup5-cpanel stable
+else
+logo
+echo JetBackup 5 is installed ...
+sleep 2
+fi
+if [ ! -e "$license_jet" ]; then
+curl -LSs  https://raw.githubusercontent.com/tactu2023/jetbackup_nulled/main/lic_jetbackup -o /root/lic_jetbackup
+chmod +x /root/lic_jetbackup
+/root/lic_jetbackup
+rm -f /root/lic_jetbackup
+fi
+echo "I check the License for you!
+Please wait..."
+sleep 5
+if [[ "$(check_license)" == *"You Jetbackup license does not require an update or activation!"* ]]; then
+logo
+echo "License Jetbackup [OK]"
+else
+logo
+echo "
+Please contact the owner of the license!
+https://t.me/tactu2023 "
+fi
